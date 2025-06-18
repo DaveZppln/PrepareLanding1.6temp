@@ -200,7 +200,8 @@ namespace PrepareLanding
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        [NotifyPropertyChangedInvocator]
+        // [NotifyPropertyChangedInvocator] // Removed or commented out
+
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

@@ -52,11 +52,9 @@ namespace PrepareLanding
         /// <summary>Subscribe to this event to know if a property of the item has changed.</summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        // // [NotifyPropertyChangedInvocator] // Removed or commented out
+ // Removed or commented out
+        protected virtual void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
     /// <summary>
@@ -206,7 +204,8 @@ namespace PrepareLanding
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        [NotifyPropertyChangedInvocator]
+        // // [NotifyPropertyChangedInvocator] // Removed or commented out
+ // Removed or commented out
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -403,7 +402,9 @@ namespace PrepareLanding
             return lte >= 0 && gte <= 0;
         }
 
-        [NotifyPropertyChangedInvocator]
+        // // [NotifyPropertyChangedInvocator] // Removed or commented out
+ // Removed or commented out
+
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -473,7 +474,8 @@ namespace PrepareLanding
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        [NotifyPropertyChangedInvocator]
+        // [NotifyPropertyChangedInvocator] // Removed or commented out
+
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -551,7 +553,8 @@ namespace PrepareLanding
             NumberOfItems = 0;
         }
 
-        [NotifyPropertyChangedInvocator]
+        // [NotifyPropertyChangedInvocator] // Removed or commented out
+
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -624,7 +627,8 @@ namespace PrepareLanding
             }
         }
 
-        [NotifyPropertyChangedInvocator]
+        // [NotifyPropertyChangedInvocator] // Removed or commented out
+
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

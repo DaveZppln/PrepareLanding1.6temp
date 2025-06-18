@@ -91,7 +91,8 @@ namespace PrepareLanding
             OnPropertyChanged(nameof(Text));
         }
 
-        [NotifyPropertyChangedInvocator]
+        // [NotifyPropertyChangedInvocator] // Removed or commented out
+
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
