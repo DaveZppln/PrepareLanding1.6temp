@@ -431,7 +431,8 @@ namespace PrepareLanding.GameData
         ///     Called when a property (user choice) has changed.
         /// </summary>
         /// <param name="propertyName">The name of the property that has changed.</param>
-        [NotifyPropertyChangedInvocator]
+        // [NotifyPropertyChangedInvocator] // Removed or commented out
+
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

@@ -378,7 +378,8 @@ namespace PrepareLanding.GameData
             OrderedStoneDefs.Sort((x, y) => string.Compare(x.LabelCap, y.LabelCap, StringComparison.Ordinal));
         }
 
-        [NotifyPropertyChangedInvocator]
+        // [NotifyPropertyChangedInvocator] // Removed or commented out
+
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
