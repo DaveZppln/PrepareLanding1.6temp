@@ -40,6 +40,10 @@ namespace PrepareLanding.GameData
             GradientColors = new List<Color> {Color.blue, Color.white, Color.red};
 
             _colorGradient = ColorUtils.CreateSolidGradient(GradientColors);
+#else
+            // Provide a default gradient to avoid null reference errors
+            GradientColors = new List<Color> { Color.white, Color.black };
+            _colorGradient = ColorUtils.CreateSolidGradient(GradientColors);
 #endif
         }
 

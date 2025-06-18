@@ -23,7 +23,7 @@ namespace PrepareLanding.Core.Gui.Window
 
         public virtual bool IsWindowValidInContext => true;
 
-        public static bool WorldRenderedNow => WorldRendererUtility.WorldRenderedNow;
+        public static bool WorldRenderedNow => Find.CurrentMap == null;
 
         public override void Close(bool doCloseSound = true)
         {

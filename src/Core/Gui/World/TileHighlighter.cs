@@ -84,9 +84,9 @@ namespace PrepareLanding.Core.Gui.World
         public bool DisableTileHighlighting { get; set; }
 
         /// <summary>
-        ///     The <see cref="PlanetLayer" /> used to highlight tiles.
+        ///     The <see cref="WorldDrawLayer" /> used to highlight tiles.
         /// </summary>
-        public PlanetLayer HighlightedTilesWorldLayer { get; set; }
+        public WorldDrawLayer HighlightedTilesWorldLayer { get; set; }
 
         /// <summary>
         ///     Get or set the ability to display the tile ID; if true, the tile id is shown on the world map; if false, an 'X' is
@@ -187,7 +187,7 @@ namespace PrepareLanding.Core.Gui.World
             HighlightedTilesIds.AddRange(tileList);
 
             // set the highlighted tiles world layer as dirty, forcing a new render.
-            Find.World.renderer.SetDirty<WorldLayerHighlightedTiles>();
+            Find.World.renderer.SetDirty(WorldRenderLayer.Overlay);
         }
 
         /// <summary>
@@ -200,7 +200,7 @@ namespace PrepareLanding.Core.Gui.World
 
             // set the world layer has being dirty, forcing a redraw.
             if(Find.World != null)
-                Find.World.renderer.SetDirty<WorldLayerHighlightedTiles>();
+                Find.World.renderer.SetDirty(WorldRenderLayer.Overlay);
 
             // Stop the tick handler from ticking. It should alleviate the game engine (from continuously ticking).
             PrepareLanding.Instance.GameTicks.StopTicking();
@@ -220,7 +220,7 @@ namespace PrepareLanding.Core.Gui.World
                     return;
                 case nameof(_filterOptions.DisableTileHighlighting):
                     DisableTileHighlighting = _filterOptions.DisableTileHighlighting;
-                    Find.World.renderer.SetDirty<WorldLayerHighlightedTiles>();
+                    Find.World.renderer.SetDirty(WorldRenderLayer.Overlay);
                     return;
                 case nameof(_filterOptions.BypassMaxHighlightedTiles):
                     BypassMaxHighlightedTiles = _filterOptions.BypassMaxHighlightedTiles;

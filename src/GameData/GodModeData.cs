@@ -179,15 +179,16 @@ namespace PrepareLanding.GameData
 
             _selectedTileId = tileId;
 
-            var tile = Find.World.grid[tileId];
+            var planetTile = new PlanetTile(tileId);
 
-            _biome = tile.biome;
-            _elevation = tile.elevation;
-            _hilliness = tile.hilliness;
-            _averageTemperature = tile.temperature;
-            _rainfall = tile.rainfall;
+            _biome = Find.World.grid[planetTile.Index].biome;
+            _elevation = Find.World.grid[planetTile.Index].elevation;
+            _hilliness = Find.World.grid[planetTile.Index].hilliness;
+            _averageTemperature = Find.World.grid[planetTile.Index].temperature;
+            _rainfall = Find.World.grid[planetTile.Index].rainfall;
 
             ResetSelectedRoadDefs();
+            var tile = Find.World.grid[planetTile.Index];
             if (tile.Roads != null)
                 foreach (var roadLink in tile.Roads)
                 {
@@ -254,8 +255,9 @@ namespace PrepareLanding.GameData
              */
 
             // biome
-            if (Biome != null && Biome != tile.biome)
-                tile.biome = Biome;
+            var rwTile = Find.WorldGrid[SelectedTileId];
+            if (Biome != null && Biome != rwTile.biome)
+                rwTile.biome = Biome;
 
             // temperature
             if (!tile.temperature.PreciseRound(1).IsInEpsilonRange(AverageTemperature, 0.15f))

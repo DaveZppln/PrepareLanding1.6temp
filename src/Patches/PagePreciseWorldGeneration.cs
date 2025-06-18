@@ -157,7 +157,7 @@ namespace PrepareLanding.Patches
             LongEventHandler.QueueLongEvent(delegate
             {
                 Find.GameInitData.ResetWorldRelatedMapInitData();
-                Current.Game.World = WorldGenerator.GenerateWorld(_planetCoverage, _seedString, _rainfall, _temperature, _population, _factions, _pollution);
+                Current.Game.World = WorldGenerator.GenerateWorld(_planetCoverage, _seedString, _rainfall, _temperature, _population, LandmarkDensity.Normal, _factions, _pollution);
                 LongEventHandler.ExecuteWhenFinished(delegate
                 {
                     if (next != null)

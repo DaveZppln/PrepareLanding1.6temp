@@ -73,7 +73,7 @@ namespace PrepareLanding
         {
             Begin(inRect);
 
-            var tileId = Find.WorldSelector.selectedTile;
+            var tileId = Find.WorldSelector.SelectedTile;
             if (tileId == -1)
             {
                 NewColumn();
@@ -105,7 +105,7 @@ namespace PrepareLanding
         {
             DrawEntryHeader("Tile Setup", backgroundColor: ColorLibrary.RoyalPurple);
 
-            var tileId = Find.WorldSelector.selectedTile;
+            var tileId = Find.WorldSelector.SelectedTile;
 
             if (!Find.WorldSelector.AnyObjectOrTileSelected || tileId < 0)
             {

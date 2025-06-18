@@ -218,7 +218,7 @@ namespace PrepareLanding
             if (_matchingTileIds.Count == 0)
             {
                 Messages.Message("PLFILT_FilterTilesFirst".Translate(), MessageTypeDefOf.RejectInput);
-                return Tile.Invalid;
+                return PlanetTile.Invalid;
             }
 
             var random = new System.Random();
@@ -236,13 +236,14 @@ namespace PrepareLanding
                         tile.hilliness == Hilliness.Impassable)
                         return 0f;
 
-                    if (!tile.biome.canBuildBase || !tile.biome.implemented)
+                    var biome = Find.World.grid[x].biome;
+                    if (!biome.canBuildBase || !biome.implemented)
                         return 0f;
 
-                    if (!tile.biome.canAutoChoose)
+                    if (!Find.World.grid[x].biome.canAutoChoose)
                         return 0f;
 
-                    return tile.biome.settlementSelectionWeight;
+                    return Find.World.grid[x].biome.settlementSelectionWeight;
                 }, out var tileId))
                 {
                     if (TileFinder.IsValidTileForNewSettlement(tileId))
@@ -252,7 +253,7 @@ namespace PrepareLanding
 
             Messages.Message("PLFILT_FailedFindValidBaseTile".Translate(), MessageTypeDefOf.RejectInput);
             Log.Error("[PrepareLanding] Failed to find a valid tile for a base.");
-            return Tile.Invalid;
+            return PlanetTile.Invalid;
         }
 
         /// <summary>
@@ -415,7 +416,7 @@ namespace PrepareLanding
         /// </summary>
         private void Prefilter()
         {
-            Log.Message($"[PrepareLanding] Prefilter: {Find.WorldGrid.tiles.Count} tiles in WorldGrid.tiles");
+            Log.Message($"[PrepareLanding] Prefilter: {Find.World.grid.TilesCount} tiles in World.grid");
 
             FilterInfoLogger.AppendTitleMessage("PLFILT_PreFiltering".Translate(), textColor: Color.cyan);
 
@@ -435,7 +436,7 @@ namespace PrepareLanding
             }
 
             var msgTilesRemainAfterFilter = string.Format("PLFILT_ValidTilesRemainAfterFilter".Translate(),
-                _allValidTileIds.Count, Find.WorldGrid.tiles.Count - _allValidTileIds.Count);
+                _allValidTileIds.Count, Find.WorldGrid.TilesCount - _allValidTileIds.Count);
             FilterInfoLogger.AppendMessage(msgTilesRemainAfterFilter);
 
             // get all tiles with at least one river
@@ -620,7 +621,7 @@ namespace PrepareLanding
 
             // we must be able to build a base, the tile biome must be implemented and the tile itself must not be impassable
             // Side note on tile.WaterCovered: this doesn't work for sea ice biomes as elevation is < 0, but sea ice is a perfectly valid biome where to settle.
-            return tile.biome.canBuildBase && tile.biome.implemented && impassableTilesCondition;
+            return Find.World.grid[planetTile.TileIndex].biome.canBuildBase && PlanetTile.biome.implemented && impassableTilesCondition;
         }
 
         #endregion PREDICATES

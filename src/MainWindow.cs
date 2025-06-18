@@ -103,7 +103,7 @@ namespace PrepareLanding
                 {
                     SoundDefOf.Click.PlayOneShotOnCamera();
                     var tileId = PrepareLanding.Instance.TileFilter.RandomFilteredTile();
-                    if (tileId == Tile.Invalid)
+                    if (tileId == -1)
                         return;
 
                     Find.WorldInterface.SelectedTile = tileId;
@@ -187,7 +187,7 @@ namespace PrepareLanding
 
         public override Vector2 InitialSize => new Vector2(1024f, 768f);
 
-        public override bool IsWindowValidInContext => WorldRendererUtility.WorldRenderedNow && (Find.WindowStack.IsOpen<MainWindow>() || Find.WindowStack.IsOpen<MinimizedWindow>());
+        public override bool IsWindowValidInContext => Find.World.renderer.WantsToRenderNow && (Find.WindowStack.IsOpen<MainWindow>() || Find.WindowStack.IsOpen<MinimizedWindow>());
 
         public override void DoWindowContents(Rect inRect)
         {
