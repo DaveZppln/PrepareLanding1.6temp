@@ -84,9 +84,9 @@ namespace PrepareLanding.Core.Gui.World
         public bool DisableTileHighlighting { get; set; }
 
         /// <summary>
-        ///     The <see cref="WorldLayer" /> used to highlight tiles.
+        ///     The <see cref="PlanetLayer" /> used to highlight tiles.
         /// </summary>
-        public WorldLayer HighlightedTilesWorldLayer { get; set; }
+        public PlanetLayer HighlightedTilesWorldLayer { get; set; }
 
         /// <summary>
         ///     Get or set the ability to display the tile ID; if true, the tile id is shown on the world map; if false, an 'X' is
