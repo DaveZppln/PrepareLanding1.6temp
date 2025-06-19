@@ -87,7 +87,7 @@ namespace PrepareLanding
         }
 
         /// <summary>
-        ///     Disable the prefilter check (<see cref="WorldTileFilter.Prefilter" />).
+        ///     Disable the prefilter check (<see cref="PlanetTileFilter.Prefilter" />).
         /// </summary>
         public bool DisablePreFilterCheck
         {

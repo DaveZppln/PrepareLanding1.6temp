@@ -7,7 +7,7 @@ using Verse;
 namespace PrepareLanding.Core.Gui.World
 {
     // ReSharper disable once ClassNeverInstantiated.Global
-    public class WorldLayerHighlightedTiles : WorldLayer
+    public class WorldLayerHighlightedTiles : WorldDrawLayer
     {
         private readonly float _blinkTick;
 
@@ -42,9 +42,6 @@ namespace PrepareLanding.Core.Gui.World
         /// <returns></returns>
         public override IEnumerable Regenerate()
         {
-            foreach (var result in base.Regenerate())
-                yield return result;
-
             if (PrepareLanding.Instance.TileHighlighter.HighlightedTilesIds.Count == 0)
                 yield break;
 
@@ -53,37 +50,35 @@ namespace PrepareLanding.Core.Gui.World
                 if (tileId < 0)
                     continue;
 
-
                 var material = WorldLayerBehaviour.DefaultTileHighlighterMaterial;
-
-                var subMesh = GetSubMesh(material);
-                subMesh.finalized = false;
 
                 Find.World.grid.GetTileVertices(tileId, _vertices);
 
-                var startVertIndex = subMesh.verts.Count;
-                var currentIndex = 0;
-                var maxCount = _vertices.Count;
+                // Build mesh data
+                var mesh = new Mesh();
+                var verts = new List<Vector3>();
+                var tris = new List<int>();
 
-                while (currentIndex < maxCount)
+                for (int i = 0; i < _vertices.Count; i++)
                 {
-                    if (currentIndex % 1000 == 0)
-                        yield return null;
-
-                    if (subMesh.verts.Count > 60000)
-                        subMesh = GetSubMesh(material);
-
-                    subMesh.verts.Add(_vertices[currentIndex] + _vertices[currentIndex].normalized * 0.012f);
-                    if (currentIndex < maxCount - 2)
+                    verts.Add(_vertices[i] + _vertices[i].normalized * 0.012f);
+                    if (i < _vertices.Count - 2)
                     {
-                        subMesh.tris.Add(startVertIndex + currentIndex + 2);
-                        subMesh.tris.Add(startVertIndex + currentIndex + 1);
-                        subMesh.tris.Add(startVertIndex);
+                        tris.Add(i + 2);
+                        tris.Add(i + 1);
+                        tris.Add(0);
                     }
-                    currentIndex++;
                 }
 
-                subMesh.FinalizeMesh(MeshParts.All);
+                mesh.SetVertices(verts);
+                mesh.SetTriangles(tris, 0);
+
+                // Optionally set colors, UVs, etc.
+
+                // Draw the mesh
+                Graphics.DrawMesh(mesh, Matrix4x4.identity, material, 0);
+
+                yield return null; // Yield for coroutine compatibility
             }
         }
 
