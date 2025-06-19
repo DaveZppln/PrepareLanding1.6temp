@@ -35,7 +35,7 @@ namespace PrepareLanding
 
             GameData = new GameData.GameData(filterOptions);
 
-            TileFilter = new WorldTileFilter(GameData.UserData);
+            TileFilter = new PlanetTileFilter(GameData.UserData);
 
             // instantiate the tile highlighter
             TileHighlighter = new TileHighlighter(filterOptions);
@@ -60,7 +60,7 @@ namespace PrepareLanding
         /// <summary>
         ///     The filtering class instance used to filter tiles on the world map.
         /// </summary>
-        public WorldTileFilter TileFilter { get; }
+        public PlanetTileFilter TileFilter { get; }
 
         /// <summary>
         ///     Allow highlighting filtered tiles on the world map.

@@ -179,16 +179,15 @@ namespace PrepareLanding.GameData
 
             _selectedTileId = tileId;
 
-            var planetTile = new PlanetTile(tileId);
+            var tile = Find.World.grid[tileId];
 
-            _biome = Find.World.grid[planetTile.Index].biome;
-            _elevation = Find.World.grid[planetTile.Index].elevation;
-            _hilliness = Find.World.grid[planetTile.Index].hilliness;
-            _averageTemperature = Find.World.grid[planetTile.Index].temperature;
-            _rainfall = Find.World.grid[planetTile.Index].rainfall;
+            _biome = tile.PrimaryBiome;
+            _elevation = tile.elevation;
+            _hilliness = tile.hilliness;
+            _averageTemperature = tile.temperature;
+            _rainfall = tile.rainfall;
 
             ResetSelectedRoadDefs();
-            var tile = Find.World.grid[planetTile.Index];
             if (tile.Roads != null)
                 foreach (var roadLink in tile.Roads)
                 {
@@ -255,9 +254,8 @@ namespace PrepareLanding.GameData
              */
 
             // biome
-            var rwTile = Find.WorldGrid[SelectedTileId];
-            if (Biome != null && Biome != rwTile.biome)
-                rwTile.biome = Biome;
+            if (Biome != null && Biome != tile.PrimaryBiome)
+                tile.PrimaryBiome = Biome;
 
             // temperature
             if (!tile.temperature.PreciseRound(1).IsInEpsilonRange(AverageTemperature, 0.15f))
@@ -380,8 +378,7 @@ namespace PrepareLanding.GameData
             OrderedStoneDefs.Sort((x, y) => string.Compare(x.LabelCap, y.LabelCap, StringComparison.Ordinal));
         }
 
-        // [NotifyPropertyChangedInvocator] // Removed or commented out
-
+        [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

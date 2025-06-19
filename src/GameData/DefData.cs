@@ -228,7 +228,7 @@ namespace PrepareLanding.GameData
         /// <returns>A list of all available RimWorld stone definitions (<see cref="ThingDef" />).</returns>
         private List<ThingDef> BuildStoneDefs()
         {
-            return DefDatabase<ThingDef>.AllDefs.Where(WorldTileFilter.IsThingDefStone).ToList();
+            return DefDatabase<ThingDef>.AllDefs.Where(PlanetTileFilter.IsThingDefStone).ToList();
         }
 
         /// <summary>

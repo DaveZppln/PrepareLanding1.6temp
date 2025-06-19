@@ -16,7 +16,7 @@ namespace PrepareLanding
     /// <summary>
     ///     Class used to filter tiles (depending on user choices) from the world map.
     /// </summary>
-    public class WorldTileFilter
+    public class PlanetTileFilter
     {
         /// <summary>
         ///     Contains all tiles (from the world map) with at least one river in it.
@@ -32,7 +32,7 @@ namespace PrepareLanding
         ///     Class constructor.
         /// </summary>
         /// <param name="userData">An instance of the class used to keep user choice from the main GUI window.</param>
-        public WorldTileFilter(UserData userData)
+        public PlanetTileFilter(UserData userData)
         {
             // save user data and subscribe to the event that is fired when a property changed (so we know if something changed on the GUI).
             _userData = userData;
@@ -236,14 +236,13 @@ namespace PrepareLanding
                         tile.hilliness == Hilliness.Impassable)
                         return 0f;
 
-                    var biome = Find.World.grid[x].biome;
-                    if (!biome.canBuildBase || !biome.implemented)
+                    if (!tile.PrimaryBiome.canBuildBase || !tile.PrimaryBiome.implemented)
                         return 0f;
 
-                    if (!Find.World.grid[x].biome.canAutoChoose)
+                    if (!tile.PrimaryBiome.canAutoChoose)
                         return 0f;
 
-                    return Find.World.grid[x].biome.settlementSelectionWeight;
+                    return tile.PrimaryBiome.settlementSelectionWeight;
                 }, out var tileId))
                 {
                     if (TileFinder.IsValidTileForNewSettlement(tileId))
@@ -416,7 +415,7 @@ namespace PrepareLanding
         /// </summary>
         private void Prefilter()
         {
-            Log.Message($"[PrepareLanding] Prefilter: {Find.World.grid.TilesCount} tiles in World.grid");
+            Log.Message($"[PrepareLanding] Prefilter: {Find.World.grid.TilesCount} tiles in WorldGrid.tiles");
 
             FilterInfoLogger.AppendTitleMessage("PLFILT_PreFiltering".Translate(), textColor: Color.cyan);
 
@@ -621,7 +620,7 @@ namespace PrepareLanding
 
             // we must be able to build a base, the tile biome must be implemented and the tile itself must not be impassable
             // Side note on tile.WaterCovered: this doesn't work for sea ice biomes as elevation is < 0, but sea ice is a perfectly valid biome where to settle.
-            return Find.World.grid[planetTile.TileIndex].biome.canBuildBase && PlanetTile.biome.implemented && impassableTilesCondition;
+            return tile.PrimaryBiome.canBuildBase && tile.PrimaryBiome.implemented && impassableTilesCondition;
         }
 
         #endregion PREDICATES
